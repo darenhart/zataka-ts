@@ -120,11 +120,11 @@ export class Game implements IGame {
     // Create canvas layers
     this.#createLayers();
 
+    // Initialize components (must be before calculateSize since it needs scoreBoard)
+    this.#initializeComponents();
+
     // Calculate initial size
     this.#calculateSize();
-
-    // Initialize components
-    this.#initializeComponents();
 
     // Show splash screen
     this.showSplashScreen();

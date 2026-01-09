@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: '.',
   publicDir: 'img',
+  base: '/zataka-ts/', // GitHub Pages base path
   build: {
     outDir: 'dist',
     sourcemap: true,

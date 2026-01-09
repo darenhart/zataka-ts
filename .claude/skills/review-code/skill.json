@@ -1,0 +1,60 @@
+{
+  "name": "review-code",
+  "version": "1.0.0",
+  "description": "Static code analysis, linting and best practices verification",
+  "author": "Claude Code Agent System",
+  "tags": ["code-review", "linting", "static-analysis", "quality", "best-practices"],
+  "category": "code-quality",
+  "runtime": "automated",
+  "inputs": {
+    "scope": {
+      "type": "string",
+      "description": "Analysis scope: 'all' (all files), 'changed' (only modified), 'specific' (specific files)",
+      "default": "all",
+      "enum": ["all", "changed", "specific"]
+    },
+    "files": {
+      "type": "array",
+      "description": "List of specific files to analyze (if scope='specific')",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "fix": {
+      "type": "boolean",
+      "description": "Auto-fix issues when possible",
+      "default": false
+    },
+    "severity": {
+      "type": "string",
+      "description": "Minimum severity to report",
+      "default": "warning",
+      "enum": ["error", "warning", "info"]
+    }
+  },
+  "outputs": {
+    "report": {
+      "type": "object",
+      "description": "Complete review report"
+    },
+    "passed": {
+      "type": "boolean",
+      "description": "Whether analysis passed without critical errors"
+    },
+    "errors": {
+      "type": "number",
+      "description": "Number of errors found"
+    },
+    "warnings": {
+      "type": "number",
+      "description": "Number of warnings found"
+    }
+  },
+  "dependencies": [
+    "eslint",
+    "prettier"
+  ],
+  "requiredTools": ["node", "npm"],
+  "estimatedDuration": "1-5 minutes"
+}

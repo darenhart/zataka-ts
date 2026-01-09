@@ -1,0 +1,56 @@
+{
+  "name": "test-game",
+  "version": "1.0.0",
+  "description": "Tests the Zatacka game in the browser and reports bugs or issues",
+  "author": "Claude Code Agent System",
+  "tags": ["testing", "manual-testing", "game", "qa", "validation"],
+  "category": "testing",
+  "runtime": "manual",
+  "inputs": {
+    "test_scope": {
+      "type": "string",
+      "description": "Test scope: 'full' (complete), 'quick' (fast), 'regression' (regression), 'specific' (specific feature)",
+      "default": "full",
+      "enum": ["full", "quick", "regression", "specific"]
+    },
+    "player_count": {
+      "type": "number",
+      "description": "Number of players to test (2-6)",
+      "default": 2,
+      "minimum": 2,
+      "maximum": 6
+    },
+    "game_mode": {
+      "type": "string",
+      "description": "Game mode to test",
+      "default": "classic",
+      "enum": ["classic", "agility", "strategy", "all"]
+    },
+    "specific_feature": {
+      "type": "string",
+      "description": "Specific feature to test (if test_scope='specific')",
+      "default": ""
+    }
+  },
+  "outputs": {
+    "test_report": {
+      "type": "object",
+      "description": "Detailed test report"
+    },
+    "passed": {
+      "type": "boolean",
+      "description": "Whether all tests passed"
+    },
+    "critical_bugs": {
+      "type": "number",
+      "description": "Number of critical bugs found"
+    }
+  },
+  "dependencies": [],
+  "requiredTools": ["browser"],
+  "estimatedDuration": {
+    "quick": "2-5 minutes",
+    "full": "10-15 minutes",
+    "regression": "5-10 minutes"
+  }
+}

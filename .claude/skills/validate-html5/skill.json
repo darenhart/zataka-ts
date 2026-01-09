@@ -1,0 +1,93 @@
+{
+  "name": "validate-html5",
+  "version": "1.0.0",
+  "description": "Validates HTML5 compatibility, Canvas API and browser support",
+  "author": "Claude Code Agent System",
+  "tags": ["html5", "canvas", "validation", "compatibility", "accessibility", "standards"],
+  "category": "validation",
+  "runtime": "automated",
+  "inputs": {
+    "scope": {
+      "type": "string",
+      "description": "Validation scope",
+      "default": "all",
+      "enum": ["all", "markup", "canvas", "compatibility", "accessibility"]
+    },
+    "browsers": {
+      "type": "array",
+      "description": "Browsers to test compatibility",
+      "items": {
+        "type": "string",
+        "enum": ["chrome", "firefox", "safari", "edge", "mobile"]
+      },
+      "default": ["chrome", "firefox", "safari", "edge"]
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Strict mode (fails on warnings)",
+      "default": false
+    }
+  },
+  "outputs": {
+    "report": {
+      "type": "object",
+      "description": "Complete validation report"
+    },
+    "valid": {
+      "type": "boolean",
+      "description": "Whether HTML5 is valid"
+    },
+    "errors": {
+      "type": "number",
+      "description": "Number of errors found"
+    },
+    "warnings": {
+      "type": "number",
+      "description": "Number of warnings"
+    },
+    "compatibility_score": {
+      "type": "number",
+      "description": "Compatibility score (0-10)",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "supported_browsers": {
+      "type": "array",
+      "description": "List of supported browsers"
+    }
+  },
+  "dependencies": [
+    "html-validate"
+  ],
+  "requiredTools": ["node", "npm"],
+  "estimatedDuration": "2-5 minutes",
+  "compatibilityTargets": {
+    "chrome": "latest 2 versions",
+    "firefox": "latest 2 versions",
+    "safari": "latest 2 versions",
+    "edge": "latest 2 versions",
+    "mobile": "not supported (desktop game)"
+  },
+  "canvasAPIsRequired": [
+    "getContext('2d')",
+    "fillRect",
+    "clearRect",
+    "arc",
+    "fill",
+    "stroke",
+    "beginPath",
+    "getImageData",
+    "fillStyle",
+    "strokeStyle",
+    "save",
+    "restore"
+  ],
+  "browserAPIsRequired": [
+    "requestAnimationFrame",
+    "performance.now",
+    "KeyboardEvent",
+    "MouseEvent",
+    "addEventListener",
+    "removeEventListener"
+  ]
+}

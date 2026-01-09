@@ -137,3 +137,202 @@ export interface IPlayerSelector {
     gameHeight: number
   ): void;
 }
+
+/**
+ * Game configuration for player physics
+ *
+ * Contains all physics parameters that affect player movement and behavior.
+ */
+export interface PlayerPhysicsConfig {
+  /** Player trail size (radius in pixels) */
+  size: number;
+
+  /** Player movement speed (pixels per frame) */
+  speed: number;
+
+  /** Turning/curve speed (degrees per frame) */
+  curveSpeed: number;
+
+  /** Base interval between holes (frames) */
+  holeRate: number;
+
+  /** Random variation for hole rate (+/- this value) */
+  holeRateRnd: number;
+
+  /** Base duration of holes (frames) */
+  holeSize: number;
+
+  /** Random variation for hole size (+/- this value) */
+  holeSizeRnd: number;
+}
+
+/**
+ * Gameplay dimensions and boundaries
+ */
+export interface GameDimensions {
+  /** Canvas width available for gameplay */
+  width: number;
+
+  /** Canvas height available for gameplay */
+  height: number;
+
+  /** Width of the scoreboard (excluded from gameplay area) */
+  scoreWidth: number;
+}
+
+/**
+ * FPS provider for frame rate adjustment
+ */
+export interface FPSProvider {
+  /** Current frames per second (undefined if not calculated yet) */
+  readonly value: number | undefined;
+}
+
+/**
+ * Input manager for player controls
+ */
+export interface IInputManager {
+  /**
+   * Check if a key is currently pressed
+   *
+   * @param key - Key name to check
+   * @returns True if key is pressed, false otherwise
+   */
+  isKeyPressed(key: string): boolean;
+}
+
+/**
+ * Dependencies required by Player instances
+ */
+export interface PlayerDependencies {
+  /** Canvas rendering context for drawing player trails */
+  context: CanvasRenderingContext2D;
+
+  /** Input manager for keyboard/mouse controls */
+  inputManager: IInputManager;
+
+  /** FPS provider for frame rate adjustment */
+  fpsProvider: FPSProvider;
+
+  /** Game dimensions and boundaries */
+  dimensions: GameDimensions;
+}
+
+/**
+ * Constants for player behavior
+ */
+export interface PlayerConstants {
+  /** Frames to keep rendering after collision detected (default: 0) */
+  afterDieTime?: number;
+
+  /** Collision detection tolerance in degrees (0-70, default: 30) */
+  collisionTolerance?: number;
+
+  /** Startup delay in frames before movement begins (default: 40) */
+  startTime?: number;
+}
+
+/**
+ * Interface for player entity implementations
+ */
+export interface IPlayer {
+  /** Player name/identifier */
+  readonly name: PlayerName;
+
+  /** Player color */
+  readonly color: string;
+
+  /** Current score */
+  score: number;
+
+  /** Whether player is dead in this round */
+  dead: boolean;
+
+  /**
+   * Initialize player for a new round
+   *
+   * Resets position, angle, and all state variables.
+   * Called at the start of each round.
+   */
+  init(): void;
+
+  /**
+   * Update and draw the player
+   *
+   * Main game loop method that:
+   * - Updates position based on input and physics
+   * - Checks for collisions
+   * - Renders player trail
+   * - Manages hole creation
+   *
+   * Should be called once per frame.
+   */
+  draw(): void;
+}
+
+/**
+ * Callback for when a player dies
+ */
+export type OnPlayerDeath = (playerName: PlayerName) => void;
+
+/**
+ * Configuration for PlayerManager
+ */
+export interface PlayerManagerConfig {
+  /** Maximum number of rounds to play */
+  maxRounds: number;
+
+  /** Physics configuration for all players */
+  physics: PlayerPhysicsConfig;
+}
+
+/**
+ * Interface for player manager implementations
+ */
+export interface IPlayerManager {
+  /** Whether a round is currently active */
+  readonly running: boolean;
+
+  /** Current round number (0-based) */
+  readonly roundCount: number;
+
+  /** Maximum number of rounds */
+  readonly maxRounds: number;
+
+  /** Array of player templates (all 6 players) */
+  readonly playerTemplates: readonly PlayerTemplate[];
+
+  /** Array of active Player instances in current game */
+  readonly pool: readonly IPlayer[];
+
+  /**
+   * Initialize the player manager for a new game
+   *
+   * Creates Player instances for all players marked as ready.
+   *
+   * @param config - Game configuration including maxRounds and physics
+   */
+  init(config: PlayerManagerConfig): void;
+
+  /**
+   * Start a new round
+   *
+   * Clears the canvas and initializes all players.
+   */
+  startRound(): void;
+
+  /**
+   * Main animation/game loop
+   *
+   * Updates and draws all living players if round is active.
+   * Handles space bar input for starting new round or finishing game.
+   */
+  animate(): void;
+
+  /**
+   * Check if the round should end
+   *
+   * Called when a player dies. Ends the round if only one player remains alive.
+   */
+  checkRoundOver(): void;
+}

@@ -60,7 +60,7 @@ export class Player implements IPlayer {
   // Dependencies
   #context: CanvasRenderingContext2D;
   #inputManager: { isKeyPressed(key: string): boolean };
-  #fpsProvider: { readonly value: number | undefined };
+  #fpsProvider: { readonly currentFps: number };
   #dimensions: { width: number; height: number; scoreWidth: number };
 
   // Constants
@@ -196,7 +196,7 @@ export class Player implements IPlayer {
     }
 
     // Calculate FPS-adjusted speed
-    const fps = this.#fpsProvider.value;
+    const fps = this.#fpsProvider.currentFps;
     const speedMultiplier = fps && fps > 20 ? 60 / fps : 1;
     const adjustedSpeed = this.#speed * speedMultiplier;
     const adjustedAngSpeed = this.#curveSpeed * speedMultiplier;

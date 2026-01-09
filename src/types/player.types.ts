@@ -184,8 +184,8 @@ export interface GameDimensions {
  * FPS provider for frame rate adjustment
  */
 export interface FPSProvider {
-  /** Current frames per second (undefined if not calculated yet) */
-  readonly value: number | undefined;
+  /** Current frames per second */
+  readonly currentFps: number;
 }
 
 /**

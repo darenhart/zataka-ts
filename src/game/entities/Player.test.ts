@@ -47,7 +47,7 @@ function createMockInputManager() {
  */
 function createMockFPS() {
   return {
-    value: undefined as number | undefined,
+    currentFps: undefined as number | undefined,
   };
 }
 
@@ -285,7 +285,7 @@ describe('Player', () => {
       player.init();
 
       // Low FPS should increase movement speed
-      fpsProvider.value = 30; // Half of 60 FPS
+      fpsProvider.currentFps = 30; // Half of 60 FPS
 
       player.draw();
 
@@ -293,7 +293,7 @@ describe('Player', () => {
       expect(context.fill).toHaveBeenCalled();
     });
 
-    it('should not adjust speed for low FPS values', () => {
+    it('should not adjust speed for low FPS currentFpss', () => {
       const player = new Player(TEST_TEMPLATE, TEST_PHYSICS, dependencies, {
         startTime: 0,
       });
@@ -301,7 +301,7 @@ describe('Player', () => {
       player.init();
 
       // Very low FPS should not adjust (below threshold of 20)
-      fpsProvider.value = 15;
+      fpsProvider.currentFps = 15;
 
       player.draw();
 
@@ -316,7 +316,7 @@ describe('Player', () => {
 
       player.init();
 
-      fpsProvider.value = undefined;
+      fpsProvider.currentFps = undefined;
 
       // Should not throw
       expect(() => player.draw()).not.toThrow();

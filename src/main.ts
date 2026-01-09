@@ -130,14 +130,14 @@ function initializeGame(images: ImageRepository): void {
 function loadImages(): void {
   const imageLoader = createImageLoader({
     images: {
-      splash: 'img/achtung-small.png',
-      end: 'img/achtung-konec-hry.png',
-      red: 'img/red.png',
-      yellow: 'img/yellow.png',
-      orange: 'img/orange.png',
-      green: 'img/green.png',
-      pink: 'img/pink.png',
-      blue: 'img/blue.png',
+      splash: 'achtung-small.png',
+      end: 'achtung-konec-hry.png',
+      red: 'red.png',
+      yellow: 'yellow.png',
+      orange: 'orange.png',
+      green: 'green.png',
+      pink: 'pink.png',
+      blue: 'blue.png',
     },
     onComplete: () => {
       // All images loaded, initialize game

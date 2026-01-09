@@ -94,36 +94,30 @@ All JavaScript files have been successfully migrated to TypeScript.
 
 ## 📋 Remaining Tasks
 
-### 1. Update index.html ⏳
-**Status**: Not started
+### 1. Update index.html ✅
+**Status**: **COMPLETE**
 **Priority**: High
 **Description**: Update index.html to load the TypeScript bundle instead of individual .js files
 
+**Completed Changes**:
+- ✅ Removed all JavaScript script tags (conf.js, Keys.js, Fps.js, Score.js, SelectPlayers.js, Advanced.js, Player.js, Game.js)
+- ✅ Activated TypeScript entry point: `<script type="module" src="/src/main.ts"></script>`
+- ✅ Removed `onresize` attribute from body tag (now handled in main.ts)
+- ✅ Fixed advanced form id from "form" to "advanced-form"
+
+**Build Results**:
+```
+✓ TypeScript compilation: 0 errors
+✓ Vite build: Success
+✓ Bundle size: 21.91 kB (6.68 kB gzipped)
+✓ No warnings about legacy .js files
+```
+
 **Current State**:
 ```html
-<!-- Old JavaScript files (these scripts need to be removed) -->
-<script src="conf.js"></script>
-<script src="Keys.js"></script>
-<script src="SelectPlayers.js"></script>
-<script src="Score.js"></script>
-<script src="Player.js"></script>
-<script src="Fps.js"></script>
-<script src="Advanced.js"></script>
-<script src="Game.js"></script>
-```
-
-**Target State**:
-```html
-<!-- TypeScript bundle (Vite handles this automatically) -->
+<!-- TypeScript Entry Point (Vite) -->
 <script type="module" src="/src/main.ts"></script>
 ```
-
-**Steps**:
-1. Open `index.html`
-2. Remove all `<script src="*.js">` references
-3. Add single script tag: `<script type="module" src="/src/main.ts"></script>`
-4. Test in development mode: `npm run dev`
-5. Test production build: `npm run build && npm run preview`
 
 ---
 
@@ -377,5 +371,5 @@ npm run lint
 
 ---
 
-**Last Updated**: 2026-01-09
-**Migration Status**: ✅ Complete - Ready for index.html update
+**Last Updated**: 2026-01-09 17:10
+**Migration Status**: ✅ Complete - Ready for integration testing

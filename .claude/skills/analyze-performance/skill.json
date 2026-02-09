@@ -1,0 +1,82 @@
+{
+  "name": "analyze-performance",
+  "version": "1.0.0",
+  "description": "Analyzes game performance, identifies bottlenecks and suggests optimizations",
+  "author": "Claude Code Agent System",
+  "tags": ["performance", "optimization", "fps", "memory", "profiling", "benchmark"],
+  "category": "performance",
+  "runtime": "manual",
+  "inputs": {
+    "scenario": {
+      "type": "string",
+      "description": "Test scenario",
+      "default": "normal",
+      "enum": ["normal", "high-load", "extended", "stress", "all"]
+    },
+    "player_count": {
+      "type": "number",
+      "description": "Number of players",
+      "default": 2,
+      "minimum": 2,
+      "maximum": 6
+    },
+    "duration": {
+      "type": "number",
+      "description": "Test duration in minutes",
+      "default": 2,
+      "minimum": 1,
+      "maximum": 30
+    },
+    "profile": {
+      "type": "boolean",
+      "description": "Run detailed profiling with DevTools",
+      "default": true
+    }
+  },
+  "outputs": {
+    "report": {
+      "type": "object",
+      "description": "Complete performance report"
+    },
+    "fps_average": {
+      "type": "number",
+      "description": "Average FPS during test"
+    },
+    "fps_minimum": {
+      "type": "number",
+      "description": "Minimum FPS during test"
+    },
+    "memory_usage": {
+      "type": "number",
+      "description": "Memory usage in MB"
+    },
+    "memory_leak_detected": {
+      "type": "boolean",
+      "description": "Whether memory leak was detected"
+    },
+    "bottlenecks": {
+      "type": "array",
+      "description": "List of identified bottlenecks"
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall status: excellent, good, acceptable, problematic",
+      "enum": ["excellent", "good", "acceptable", "problematic"]
+    }
+  },
+  "dependencies": [],
+  "requiredTools": ["browser", "devtools"],
+  "estimatedDuration": {
+    "normal": "2-5 minutes",
+    "high-load": "3-5 minutes",
+    "extended": "10-15 minutes",
+    "stress": "15-30 minutes"
+  },
+  "performanceTargets": {
+    "fps_minimum": 50,
+    "fps_target": 60,
+    "frame_time_max": 20,
+    "memory_max": 50,
+    "memory_leak_growth_threshold": 10
+  }
+}

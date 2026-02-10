@@ -99,7 +99,7 @@ export class ScoreBoard implements IScoreBoard {
    * scoreBoard.draw(players, gameHeight); // Don't forget to redraw!
    * ```
    */
-  public incrementScores(deadPlayerName: string, players: Player[]): void {
+  public incrementScores(deadPlayerName: string, players: readonly Player[]): void {
     // Award points to all living players except the one who died
     for (const player of players) {
       if (player.name !== deadPlayerName && !player.dead) {

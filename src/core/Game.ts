@@ -425,6 +425,9 @@ export class Game implements IGame {
     // Create FPS counter (needed by player manager)
     this.#fpsCounter = createFpsCounter(this.#layers.texts.context);
 
+    // Create scoreboard first (needed by player manager callback)
+    this.#scoreBoard = createScoreBoard(this.#layers.score.context);
+
     // Create dimensions object for player manager
     const dimensions = {
       get width() {
@@ -456,10 +459,16 @@ export class Game implements IGame {
       onFinish: () => {
         this.finish();
       },
+      onPlayerDeath: (playerName: string) => {
+        // Only increment scores if round is still active
+        if (this.#playerManager.running) {
+          this.#scoreBoard.incrementScores(
+            playerName,
+            this.#playerManager.pool
+          );
+        }
+      },
     });
-
-    // Create scoreboard
-    this.#scoreBoard = createScoreBoard(this.#layers.score.context);
 
     // Create background
     this.#background = createBackground(this.#layers.main.context);

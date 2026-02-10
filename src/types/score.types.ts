@@ -68,9 +68,9 @@ export interface IScoreBoard {
    * This implements the last-man-standing scoring system.
    *
    * @param deadPlayerName - Name of the player who died
-   * @param players - Array of all players
+   * @param players - Array of all players (readonly to accept PlayerManager pool)
    */
-  incrementScores(deadPlayerName: string, players: Player[]): void;
+  incrementScores(deadPlayerName: string, players: readonly Player[]): void;
 
   /**
    * Clear the scoreboard canvas area

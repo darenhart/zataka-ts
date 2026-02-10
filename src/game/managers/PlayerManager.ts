@@ -96,6 +96,9 @@ export interface PlayerManagerDependencies {
 
   /** Callback when game should finish */
   onFinish?: () => void;
+
+  /** Callback when a player dies (to increment scores) */
+  onPlayerDeath?: (playerName: string) => void;
 }
 
 /**
@@ -144,6 +147,7 @@ export class PlayerManager implements IPlayerManager {
   // Callbacks
   #onNewRound?: () => void;
   #onFinish?: () => void;
+  #onPlayerDeath?: (playerName: string) => void;
 
   /**
    * Create a new player manager
@@ -160,6 +164,7 @@ export class PlayerManager implements IPlayerManager {
     this.#playerConstants = dependencies.playerConstants;
     this.#onNewRound = dependencies.onNewRound;
     this.#onFinish = dependencies.onFinish;
+    this.#onPlayerDeath = dependencies.onPlayerDeath;
 
     // Use custom templates or defaults
     this.#playerTemplates = playerTemplates
@@ -180,7 +185,13 @@ export class PlayerManager implements IPlayerManager {
     this.#pool = [];
 
     // Create death callback that will be passed to each player
-    const onPlayerDeath: OnPlayerDeath = () => {
+    const onPlayerDeath: OnPlayerDeath = (playerName: string) => {
+      // Notify game to increment scores for surviving players
+      if (this.#onPlayerDeath) {
+        this.#onPlayerDeath(playerName);
+      }
+
+      // Check if round should end
       this.checkRoundOver();
     };
 

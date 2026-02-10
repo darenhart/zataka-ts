@@ -318,7 +318,15 @@ export class Player implements IPlayer {
     const p2 = this.#context.getImageData(x2, y2, 1, 1).data;
 
     // Collision if either sample point has color (non-black pixel)
-    if (p1[0] !== 0 || p2[0] !== 0) {
+    // Check all RGB channels, not just red, to detect all colors
+    if (
+      p1[0] !== 0 ||
+      p1[1] !== 0 ||
+      p1[2] !== 0 ||
+      p2[0] !== 0 ||
+      p2[1] !== 0 ||
+      p2[2] !== 0
+    ) {
       return true;
     }
 
